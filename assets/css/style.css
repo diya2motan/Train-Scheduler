@@ -1,0 +1,40 @@
+/*.header-img{
+	height:300px;
+	width: 100%;
+
+}*/
+body{
+	background-image: url("../images/tracks-2139935_1920.jpg");
+}
+
+.header{
+	margin-top: 5px;
+	margin-bottom: 15px;
+	text-align: center;
+	background-color: #dff0d8;
+	color: #3c763d;
+	border: none;
+	padding: 20px;
+	/*height: 250px;*/
+}
+
+.left-img{
+	width: 200px;
+	height: 100px;
+	float: left;
+	transform: scaleX(-1);
+}
+.submit-btn{
+	background-color: #dff0d8;
+	color: #3c763d;
+	font-weight: bold;
+}
+.submit-btn:hover{
+	background-color: #dff0d8;
+	color: #3c763d;
+}
+.right-img{
+	width: 200px;
+	height: 100px;
+	float: right;
+}
