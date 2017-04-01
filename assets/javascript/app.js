@@ -19,15 +19,6 @@ var nextArrival = "";
 var currentTime = "";
 var minutesAway = "";
 
-// currentTime = moment().format("MM-DD-YYYY hh:mm:a");
-// firstTrainTime = moment("03-27-2017 8:00 pm").format("MM-DD-YYYY hh:mm:a");
-
-
-// console.log(firstTrainTime);
-// console.log(currentTime);
-// console.log(moment(firstTrainTime).toNow());
-
-
 
 $("#add-train").on("click", function(){
 	event.preventDefault();
@@ -36,10 +27,10 @@ $("#add-train").on("click", function(){
 	firstTrainTime = $("#firstTrain-input").val().trim();
 	frequency = $("#frequency-input").val().trim();
 
-	console.log(trainName);
-	console.log(destination);
-	console.log(firstTrainTime);
-	console.log(frequency);
+	// console.log(trainName);
+	// console.log(destination);
+	// console.log(firstTrainTime);
+	// console.log(frequency);
 
 	database.ref().push({
 
@@ -62,23 +53,23 @@ database.ref().on("child_added", function(childSnapshot) {
 
   
       var firstTimeConverted = moment(childSnapshot.val().firstTrainTime, "hh:mm").subtract(1, "years");
-      console.log(firstTimeConverted);
+      // console.log(firstTimeConverted);
 
       var currentTime = moment();
       // Difference between the times
-      console.log(currentTime);
+      // console.log(currentTime);
       var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-      console.log(diffTime);
+      // console.log(diffTime);
       var tRemainder = diffTime % childSnapshot.val().frequency;
-      console.log(tRemainder);
+      // console.log(tRemainder);
       // Minute Until Train
       var tMinutesTillTrain = childSnapshot.val().frequency - tRemainder;
 
       // Next Train
       var nextTrain = moment().add(tMinutesTillTrain, "minutes");
 
-      console.log(tMinutesTillTrain);
-      console.log(nextTrain);
+      // console.log(tMinutesTillTrain);
+      // console.log(nextTrain);
 
       // full list of items to the well
       $("#trains-view").append("<tr>" +
@@ -93,12 +84,17 @@ database.ref().on("child_added", function(childSnapshot) {
       console.log("Errors handled: " + errorObject.code);
     });
 
-    // database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+function refreshPage() {
+    $.ajax({
+        url: '../../index.html',
+        dataType: 'html',
+        success: function(data) {
+            //$('.result').html(data);
+        },
+        complete: function() {
+            window.setTimeout(refreshPage, 1000);
+        }
+    });
+}
 
-    //   // Change the HTML to reflect
-    //   $("#trainName").html(snapshot.val().trainName);
-    //   $("#destination").html(snapshot.val().destination);
-    //   $("#nextArrival").html(snapshot.val().firstTrainTime);
-    //   $("#frequency").html(snapshot.val().frequency);
-
-    // });
+window.setTimeout(refreshPage, 1000);
